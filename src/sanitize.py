@@ -30,6 +30,11 @@ class Spotter:
             line = self.runRegex(regex, line)
         return line
 
+    def process_file(self, inputFile: str, outputFile: str):
+        with open(inputFile, "r") as inp, open(outputFile, "w") as out:
+            for line in map(self.process_line, inp):
+                out.write(line)
+
 
 # Functions
 def main():
