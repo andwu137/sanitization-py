@@ -1,4 +1,4 @@
-from enum import StrEnum
+from enum import StrEnum  # type: ignore
 from collections import namedtuple
 
 
@@ -9,12 +9,6 @@ RegexType = StrEnum("RegexType", ["Remove"])
 
 
 class SpotType(StrEnum):
-    PHONE = "phone"
-    EMAIL = "email"
-    SIN = "sin"
-    ADDRESS = "address"
-    STOPWORDS = "stopwords"
-
     PHONE = "phone"
     EMAIL = "email"
     SIN = "sin"
