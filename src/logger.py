@@ -30,4 +30,3 @@ class Logger:
     def log_error(obj, error, msg):
         string = f"{error} - Spotter {obj.getSpotterUID()}: {msg} \n"
         Logger.log(string)
-
