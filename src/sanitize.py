@@ -1,15 +1,12 @@
 # External Imports
 from typing import Optional
-from collections import namedtuple
 import re
 
 # Internal Imports
+from constants import Regex, RegexType, SpotType
 
 
 # Classes
-Regex = namedtuple("Regex", ["pattern", "type"])
-
-
 class Spotter:
     defaultRegexes: dict[str, Regex] = {}
 
@@ -22,13 +19,13 @@ class Spotter:
 
     @staticmethod
     def runRegex(reg, line) -> str:
-        raise NotImplementedError()
-        if reg.type == "":
-            return reg.pattern.sub("", line)
-        return ""
+        match reg.type:
+            case RegexType.Remove:
+                return reg.pattern.sub("", line)
+            case _:
+                return ""
 
     def process_line(self, line: str) -> str:
-        raise NotImplementedError()
         for id, regex in self.regexes.items():
             line = self.runRegex(regex, line)
         return line
