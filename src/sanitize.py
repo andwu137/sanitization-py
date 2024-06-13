@@ -8,26 +8,18 @@ from constants import Regex, RegexType, SpotType
 
 # Classes
 class Spotter:
-    defaultRegexes: dict[str, Regex] = {}
+    defaultRegexes: dict[SpotType, Regex] = {}
 
-    def __init__(self, regexes: Optional[dict[str, Regex]] = None):
-        self.regexes: dict[str, Regex] = regexes or self.defaultRegexes
+    def __init__(self, regexes: Optional[dict[SpotType, Regex]] = None):
+        self.regexes: dict[SpotType, Regex] = regexes or self.defaultRegexes
         self.regexes = {
             name: Regex(re.compile(regex.pattern, re.IGNORECASE), regex.type)
             for name, regex in self.regexes.items()
         }
 
-    @staticmethod
-    def runRegex(reg, line) -> str:
-        match reg.type:
-            case RegexType.Remove:
-                return reg.pattern.sub("", line)
-            case _:
-                return ""
-
     def process_line(self, line: str) -> str:
         for id, regex in self.regexes.items():
-            line = self.runRegex(regex, line)
+            line, caught = runRegex(regex, line)
         return line
 
     def process_file(self, inputFile: str, outputFile: str):
@@ -37,6 +29,21 @@ class Spotter:
 
 
 # Functions
+def runRegex(reg, line) -> tuple[str, str]:
+    matches = ""
+
+    def get_matches(m):
+        matches = m
+        return ""
+
+    match reg.type:
+        case RegexType.Remove:
+            newLine: str = reg.pattern.sub(get_matches, line)
+            return (newLine, matches)
+        case _:
+            raise NotImplementedError()
+
+
 def main():
     pass
 
