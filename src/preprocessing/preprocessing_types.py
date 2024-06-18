@@ -1,11 +1,11 @@
-from enum import StrEnum  # type: ignore
+from enum import StrEnum, Enum  # type: ignore
 from collections import namedtuple
 
 
 Regex = namedtuple("Regex", ["pattern", "type"])
 
 
-RegexType = StrEnum("RegexType", ["Remove"])
+RegexType = Enum("RegexType", ["REMOVE"])
 
 
 class SpotType(StrEnum):

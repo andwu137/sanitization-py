@@ -2,31 +2,29 @@ from datetime import datetime
 
 
 class Logger:
-    file_path = ""
+    def __init__(self, file_path: str, debugEnabled: bool = False):
+        self.file_path = file_path
+        self.debugEnabled = debugEnabled
 
-    @staticmethod
-    def log(msg):
-        with open(Logger.file_path, "w") as file:
-            file.write(f"{datetime.now()} - {msg}")
-        file.close()
+    def log(self, msg):
+        with open(self.file_path, "a") as file:
+            file.write(f"{datetime.now()} - {msg}\n")
 
-    @staticmethod
-    def log_start(obj, **args):
-        string = f"Began process {obj.getSpotterUID()} on file blank\n"
-        Logger.log(string)
+    def debug(self, msg):
+        if self.debugEnabled:
+            self.log(msg)
 
-    @staticmethod
-    def log_removal(obj, data):
+    def log_start(self, obj, **args):
+        self.log(f"Began process {obj.getSpotterUID()} on file blank\n")
+
+    def log_removal(self, obj, data):
         # DATETIME SPOTTERUID REMOVED THIS STRING: ------
-        string = f"Spotter {obj.getSpotterUID()} removed {data}\n"
-        Logger.log(string)
+        self.log(f"Spotter {obj.getSpotterUID()} removed {data}\n")
 
-    @staticmethod
-    def log_end(obj, num):
-        string = f"Spotter {obj.getSpotterUID()} ended process with {num} removals.\n"
-        Logger.log(string)
+    def log_end(self, obj, num):
+        self.log(
+            f"Spotter {obj.getSpotterUID()} ended process with {num} removals.\n"
+        )
 
-    @staticmethod
-    def log_error(obj, error, msg):
-        string = f"{error} - Spotter {obj.getSpotterUID()}: {msg} \n"
-        Logger.log(string)
+    def log_error(self, obj, error, msg):
+        self.log(f"{error} - Spotter {obj.getSpotterUID()}: {msg} \n")
