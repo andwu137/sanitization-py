@@ -4,6 +4,7 @@ import re
 
 # Internal Imports
 from .preprocessing_types import Regex, RegexType, SpotType
+from logger import Logger
 
 
 # Classes
@@ -36,10 +37,8 @@ class Spotter:
         # ),
     }
 
-    def __init__(
-        self, logger, regexes: Optional[dict[SpotType, Regex]] = None
-    ):
-        self.logger = logger
+    def __init__(self, regexes: Optional[dict[SpotType, Regex]] = None):
+        self.logger = Logger("run.log", debugEnabled=True)
         self.regexes: dict[SpotType, Regex] = regexes or self.defaultRegexes
         self.regexes = {
             name: Regex(re.compile(regex.pattern, re.IGNORECASE), regex.type)

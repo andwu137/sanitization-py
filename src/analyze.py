@@ -4,7 +4,7 @@ from preprocessing import constants, sanitize, sensitive_info_regexes
 
 
 def main():
-    s = sanitize.Spotter(Logger("run.log", debugEnabled=True))
+    s = sanitize.Spotter()
     print("output:", s.process_line("name@gmail.com"))
 
 
