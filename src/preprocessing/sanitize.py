@@ -22,7 +22,7 @@ class Spotter:
             line, caught = runRegex(regex, line)
         return line
 
-    def process_file(self, inputFile: str, outputFile: str):
+    def process_file(self, inputFile: str, outputFile: str) -> None:
         with open(inputFile, "r") as inp, open(outputFile, "w") as out:
             for line in map(self.process_line, inp):
                 out.write(line)
@@ -32,7 +32,7 @@ class Spotter:
 def runRegex(reg, line) -> tuple[str, str]:
     matches = ""
 
-    def get_matches(m):
+    def get_matches(m) -> str:
         nonlocal matches
         matches = m
         return ""
