@@ -33,6 +33,7 @@ def runRegex(reg, line) -> tuple[str, str]:
     matches = ""
 
     def get_matches(m):
+        nonlocal matches
         matches = m
         return ""
 
